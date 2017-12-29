@@ -147,14 +147,19 @@ function drawOnCanvas(ctx, props, moreProps) {
 	// const wickData = getWickData(props, xAccessor, xScale, yScale, plotData);
 	const candleData = getCandleData(props, xAccessor, xScale, yScale, plotData);
 
+    const offset = candleStrokeWidth / 2
 	const wickNest = nest()
 		.key(d => d.wick.stroke)
 		.entries(candleData);
+
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
 
 	wickNest.forEach(outer => {
 		const { key, values } = outer;
 		ctx.strokeStyle = key;
 		ctx.fillStyle = key;
+
 		values.forEach(each => {
 			/*
 			ctx.moveTo(d.x, d.y1);
@@ -166,8 +171,8 @@ function drawOnCanvas(ctx, props, moreProps) {
 			ctx.stroke(); */
 			const d = each.wick;
 
-			ctx.fillRect(d.x - 0.5, d.y1, 1, d.y2 - d.y1);
-			ctx.fillRect(d.x - 0.5, d.y3, 1, d.y4 - d.y3);
+			ctx.fillRect(d.x - offset, d.y1, candleStrokeWidth, d.y2 - d.y1);
+			ctx.fillRect(d.x - offset, d.y3, candleStrokeWidth, d.y4 - d.y3);
 		});
 	});
 
@@ -282,10 +287,13 @@ function getCandleData(props, xAccessor, xScale, yScale, plotData) {
 	const offset = Math.round(candleWidth === 1 ? 0 : 0.5 * width);
 	*/
 	const trueOffset = 0.5 * width;
-	const offset = trueOffset > 0.7
+	
+    /*
+    const offset = trueOffset > 0.7
 		? Math.round(trueOffset)
 		: Math.floor(trueOffset);
-
+    */
+    
 	// eslint-disable-next-line prefer-const
 	let candles = [];
 
@@ -301,7 +309,7 @@ function getCandleData(props, xAccessor, xScale, yScale, plotData) {
 
 			candles.push({
 				// type: "line"
-				x: x - offset,
+				x: x - trueOffset,
 				y: y,
 				wick: {
 					stroke: wickStroke(ohlc),
@@ -312,7 +320,7 @@ function getCandleData(props, xAccessor, xScale, yScale, plotData) {
 					y4: Math.round(yScale(ohlc.low)),
 				},
 				height: height,
-				width: offset * 2,
+				width: trueOffset * 2,
 				className: className(ohlc),
 				fill: fill(ohlc),
 				stroke: stroke(ohlc),

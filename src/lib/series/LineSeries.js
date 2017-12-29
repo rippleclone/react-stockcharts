@@ -60,7 +60,8 @@ class LineSeries extends Component {
 	drawOnCanvas(ctx, moreProps) {
 		const {
 			yAccessor, stroke, strokeWidth, hoverStrokeWidth,
-			defined, strokeDasharray, interpolation
+			defined, strokeDasharray, interpolation,
+            lineCap, lineJoin
 		} = this.props;
 
 		const { connectNulls } = this.props;
@@ -69,7 +70,8 @@ class LineSeries extends Component {
 		const { xScale, chartConfig: { yScale }, plotData, hovering } = moreProps;
 
 		ctx.lineWidth = hovering ? hoverStrokeWidth : strokeWidth;
-
+        ctx.lineCap = lineCap;
+        ctx.lineJoin = lineJoin;
 		ctx.strokeStyle = stroke;
 		ctx.setLineDash(getStrokeDasharray(strokeDasharray).split(","));
 
@@ -130,6 +132,8 @@ class LineSeries extends Component {
 			stroke={stroke}
 			strokeWidth={hovering ? hoverStrokeWidth : strokeWidth}
 			strokeDasharray={getStrokeDasharray(strokeDasharray)}
+            strokeLinecap={lineCap}
+            strokeLinejoin={lineJoin}
 			fill={fill}
 		/>;
 	}
@@ -179,6 +183,8 @@ LineSeries.propTypes = {
 	strokeWidth: PropTypes.number,
 	stroke: PropTypes.string,
 	hoverStrokeWidth: PropTypes.number,
+    lineCap: PropTypes.string,
+    lineJoin: PropTypes.string,
 	fill: PropTypes.string,
 	defined: PropTypes.func,
 	hoverTolerance: PropTypes.number,
@@ -196,6 +202,8 @@ LineSeries.defaultProps = {
 	className: "line ",
 	strokeWidth: 1,
 	hoverStrokeWidth: 4,
+    lineCap: "round",
+    lineJoin: "round",
 	fill: "none",
 	stroke: "#4682B4",
 	strokeDasharray: "Solid",

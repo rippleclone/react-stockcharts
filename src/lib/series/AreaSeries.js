@@ -7,7 +7,9 @@ import AreaOnlySeries from "./AreaOnlySeries";
 
 function AreaSeries(props) {
 	const { yAccessor, baseAt } = props;
-	const { className, opacity, stroke, strokeWidth, fill } = props;
+	const { className, opacity, 
+            lineCap, lineJoin,
+            stroke, strokeWidth, fill } = props;
 
 	return (
 		<g className={className}>
@@ -15,6 +17,8 @@ function AreaSeries(props) {
 				yAccessor={yAccessor}
 				stroke={stroke} fill="none"
 				strokeWidth={strokeWidth}
+                lineCap={lineCap}
+                lineJoin={lineJoin}
 				hoverHighlight={false} />
 			<AreaOnlySeries
 				yAccessor={yAccessor}
@@ -30,6 +34,8 @@ AreaSeries.propTypes = {
 	strokeWidth: PropTypes.number,
 	fill: PropTypes.string.isRequired,
 	opacity: PropTypes.number.isRequired,
+    lineCap: PropTypes.string,
+    lineJoin: PropTypes.string,  
 	className: PropTypes.string,
 	yAccessor: PropTypes.func.isRequired,
 	baseAt: PropTypes.func,
