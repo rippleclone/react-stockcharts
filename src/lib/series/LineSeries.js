@@ -61,7 +61,7 @@ class LineSeries extends Component {
 		const {
 			yAccessor, stroke, strokeWidth, hoverStrokeWidth,
 			defined, strokeDasharray, interpolation,
-            lineCap, lineJoin
+			lineCap, lineJoin
 		} = this.props;
 
 		const { connectNulls } = this.props;
@@ -70,8 +70,8 @@ class LineSeries extends Component {
 		const { xScale, chartConfig: { yScale }, plotData, hovering } = moreProps;
 
 		ctx.lineWidth = hovering ? hoverStrokeWidth : strokeWidth;
-        ctx.lineCap = lineCap;
-        ctx.lineJoin = lineJoin;
+		ctx.lineCap = lineCap;
+		ctx.lineJoin = lineJoin;
 		ctx.strokeStyle = stroke;
 		ctx.setLineDash(getStrokeDasharray(strokeDasharray).split(","));
 
@@ -106,7 +106,8 @@ class LineSeries extends Component {
 		if (points.length) segment(points, ctx);*/
 	}
 	renderSVG(moreProps) {
-		const { yAccessor, stroke, strokeWidth, hoverStrokeWidth, defined, strokeDasharray } = this.props;
+		const { yAccessor, stroke, strokeWidth, hoverStrokeWidth,
+			lineCap, lineJoin, defined, strokeDasharray } = this.props;
 		const { connectNulls } = this.props;
 		const { interpolation } = this.props;
 		const { xAccessor } = moreProps;
@@ -132,8 +133,8 @@ class LineSeries extends Component {
 			stroke={stroke}
 			strokeWidth={hovering ? hoverStrokeWidth : strokeWidth}
 			strokeDasharray={getStrokeDasharray(strokeDasharray)}
-            strokeLinecap={lineCap}
-            strokeLinejoin={lineJoin}
+			strokeLinecap={lineCap}
+			strokeLinejoin={lineJoin}
 			fill={fill}
 		/>;
 	}
@@ -183,8 +184,8 @@ LineSeries.propTypes = {
 	strokeWidth: PropTypes.number,
 	stroke: PropTypes.string,
 	hoverStrokeWidth: PropTypes.number,
-    lineCap: PropTypes.string,
-    lineJoin: PropTypes.string,
+	lineCap: PropTypes.string,
+	lineJoin: PropTypes.string,
 	fill: PropTypes.string,
 	defined: PropTypes.func,
 	hoverTolerance: PropTypes.number,
@@ -202,8 +203,8 @@ LineSeries.defaultProps = {
 	className: "line ",
 	strokeWidth: 1,
 	hoverStrokeWidth: 4,
-    lineCap: "round",
-    lineJoin: "round",
+	lineCap: "round",
+	lineJoin: "round",
 	fill: "none",
 	stroke: "#4682B4",
 	strokeDasharray: "Solid",

@@ -147,13 +147,13 @@ function drawOnCanvas(ctx, props, moreProps) {
 	// const wickData = getWickData(props, xAccessor, xScale, yScale, plotData);
 	const candleData = getCandleData(props, xAccessor, xScale, yScale, plotData);
 
-    const offset = candleStrokeWidth / 2
+	const offset = candleStrokeWidth / 2;
 	const wickNest = nest()
 		.key(d => d.wick.stroke)
 		.entries(candleData);
 
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
+	ctx.lineCap = "round";
+	ctx.lineJoin = "round";
 
 	wickNest.forEach(outer => {
 		const { key, values } = outer;
@@ -287,13 +287,13 @@ function getCandleData(props, xAccessor, xScale, yScale, plotData) {
 	const offset = Math.round(candleWidth === 1 ? 0 : 0.5 * width);
 	*/
 	const trueOffset = 0.5 * width;
-	
-    /*
+
+	/*
     const offset = trueOffset > 0.7
 		? Math.round(trueOffset)
 		: Math.floor(trueOffset);
     */
-    
+
 	// eslint-disable-next-line prefer-const
 	let candles = [];
 

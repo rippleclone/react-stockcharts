@@ -13,7 +13,7 @@ class CrossHairCursor extends Component {
 		this.drawOnCanvas = this.drawOnCanvas.bind(this);
 	}
 	drawOnCanvas(ctx, moreProps) {
-        const { dotRadius, dotFill, dotStroke, dotStrokeWidth } = this.props
+		const { dotRadius, dotFill, dotStroke, dotStrokeWidth } = this.props;
 		const lines = helper(this.props, moreProps);
 		if (isDefined(lines)) {
 
@@ -26,11 +26,11 @@ class CrossHairCursor extends Component {
 			ctx.scale(ratio, ratio);
 
 			ctx.translate(originX, originY);
-  
+
 			lines.forEach(line => {
 				const dashArray = getStrokeDasharray(line.strokeDasharray).split(",").map(d => +d);
 
-                ctx.lineWidth = line.strokeWidth;
+				ctx.lineWidth = line.strokeWidth;
 				ctx.strokeStyle = hexToRGBA(line.stroke, line.opacity);
 				ctx.setLineDash(dashArray);
 				ctx.beginPath();
@@ -39,13 +39,13 @@ class CrossHairCursor extends Component {
 				ctx.stroke();
 			});
 
-            ctx.beginPath();
-            ctx.arc(lines[1].x1, lines[0].y1, dotRadius, 0, 2 * Math.PI, false);
-            ctx.fillStyle =  hexToRGBA(dotFill, 1);
-            ctx.fill();
-            ctx.lineWidth = dotStrokeWidth;
-            ctx.strokeStyle = hexToRGBA(dotStroke, 1);
-            ctx.stroke();          
+			ctx.beginPath();
+			ctx.arc(lines[1].x1, lines[0].y1, dotRadius, 0, 2 * Math.PI, false);
+			ctx.fillStyle =  hexToRGBA(dotFill, 1);
+			ctx.fill();
+			ctx.lineWidth = dotStrokeWidth;
+			ctx.strokeStyle = hexToRGBA(dotStroke, 1);
+			ctx.stroke();
 			ctx.restore();
 		}
 	}
@@ -79,7 +79,7 @@ class CrossHairCursor extends Component {
 CrossHairCursor.propTypes = {
 	className: PropTypes.string,
 	strokeDasharray: PropTypes.oneOf(strokeDashTypes),
-    yAccessor: PropTypes.func
+	yAccessor: PropTypes.func
 };
 
 CrossHairCursor.contextTypes = {
@@ -110,42 +110,42 @@ function customY(props, moreProps) {
 
 CrossHairCursor.defaultProps = {
 	strokeX: "#666666",
-    strokeY: "#666666",
-    strokeWidthX: 1,
-    strokeWidthY: 1,
-    dotFill: "#666666",
-    dotRadius: 0.0,
-    dotStroke: "#666666",
-    dotStrokeWidth: 0.0,
+	strokeY: "#666666",
+	strokeWidthX: 1,
+	strokeWidthY: 1,
+	dotFill: "#666666",
+	dotRadius: 0.0,
+	dotStroke: "#666666",
+	dotStrokeWidth: 0.0,
 	opacity: 0.3,
 	strokeDasharray: "ShortDash",
 	snapX: true,
-    snapY: false,
+	snapY: false,
 	customX,
-    customY
+	customY
 };
 
 function helper(props, moreProps) {
 	const {
-		mouseXY, currentItem, show, height, width
+		currentItem, show, height, width
 	} = moreProps;
 
-	const { customX, customY, strokeX, strokeY, strokeWidthX, strokeWidthY, 
-        opacity, strokeDasharray } = props;
+	const { customX, customY, strokeX, strokeY, strokeWidthX, strokeWidthY,
+		opacity, strokeDasharray } = props;
 
 	if (!show || isNotDefined(currentItem)) return null;
 
 	const x = customX(props, moreProps);
-    const y = customY(props, moreProps);
+	const y = customY(props, moreProps);
 
 	const line1 = {
 		x1: 0,
 		x2: width,
 		y1: y,
 		y2: y,
-		stroke: strokeY, 
-        strokeWidth: strokeWidthY,
-        strokeDasharray, opacity,
+		stroke: strokeY,
+		strokeWidth: strokeWidthY,
+		strokeDasharray, opacity,
 	};
 
 	const line2 = {
@@ -153,9 +153,9 @@ function helper(props, moreProps) {
 		x2: x,
 		y1: 0,
 		y2: height,
-		stroke: strokeX, 
-        strokeWidth: strokeWidthX,
-        strokeDasharray, opacity,
+		stroke: strokeX,
+		strokeWidth: strokeWidthX,
+		strokeDasharray, opacity,
 	};
 	return [line1, line2];
 }
