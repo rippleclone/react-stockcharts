@@ -198,16 +198,7 @@ function drawOnCanvas(ctx, props, moreProps) {
 			ctx.fillStyle = fillStyle;
 
 			values.forEach(d => {
-				if (d.width <= 1) {
-					// <line className={d.className} key={idx} x1={d.x} y1={d.y} x2={d.x} y2={d.y + d.height}/>
-					/*
-					ctx.beginPath();
-					ctx.moveTo(d.x, d.y);
-					ctx.lineTo(d.x, d.y + d.height);
-					ctx.stroke();
-					*/
-					ctx.fillRect(d.x - 0.5, d.y, 1, d.height);
-				} else if (d.height === 0) {
+				if (d.height === 0) {
 					// <line key={idx} x1={d.x} y1={d.y} x2={d.x + d.width} y2={d.y + d.height} />
 					/*
 					ctx.beginPath();
